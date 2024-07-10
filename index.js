@@ -10,7 +10,7 @@ const port = 3000;
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "databasename", //enter the name of your database
+  database: "", //enter the name of your database
   password: "",  //enter the password of your postgres server 
   port: 5432,
 });
@@ -85,11 +85,28 @@ app.post("/add", async (req, res) => {
           countryCode = data.code;
         } else throw new Error("Please Enter a Valid country name");
         console.log(countryCode);
-        await db.query(
-          "INSERT INTO visited_countries (country_code, user_id) VALUES ($1, $2)",
-          [countryCode, currentUserId]
-        );
-        res.redirect("/");
+          try
+          {
+            await db.query(
+              "INSERT INTO visited_countries (country_code, user_id) VALUES ($1, $2)",
+              [countryCode, currentUserId]
+            );
+            res.redirect("/");
+          }
+          catch(error)
+          {
+            console.error("Dublicated country error handled");
+            const countries = await checkVisisted();
+            const currentUser = await getCurrentUser();
+            res.render("index.ejs", {
+              countries: countries,
+              total: countries.length,
+              users: users,
+              color: currentUser.color,
+              error: "Country already added",
+              placeholder_color: "red",
+            });
+          }
       } catch (err) {
         console.error("No match error handled");
         const countries = await checkVisisted();
@@ -118,6 +135,7 @@ app.post("/add", async (req, res) => {
     });
   }
 });
+
 
 
 

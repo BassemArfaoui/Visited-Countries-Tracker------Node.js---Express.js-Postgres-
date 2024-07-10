@@ -275,3 +275,10 @@ SELECT *
 FROM visited_countries
 JOIN users
 ON users.id = user_id;
+
+
+
+--new additon to fix country already added bug 
+
+alter table visited_countries 
+add unique (country_code , user_id);
