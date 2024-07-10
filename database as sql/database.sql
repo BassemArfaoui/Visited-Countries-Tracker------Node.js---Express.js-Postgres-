@@ -1,7 +1,7 @@
 CREATE TABLE countries(
-   id   INTEGER  NOT NULL PRIMARY KEY 
-  ,code VARCHAR(2) NOT NULL
-  ,name VARCHAR(44) NOT NULL
+   id   serial  NOT NULL PRIMARY KEY 
+  ,code CHAR(2) 
+  ,name VARCHAR(50) 
 );
 INSERT INTO countries(id,code,name) VALUES (1,'AF','Afghanistan');
 INSERT INTO countries(id,code,name) VALUES (2,'AX','Aland Islands');
@@ -253,44 +253,25 @@ INSERT INTO countries(id,code,name) VALUES (247,'ZW','Zimbabwe');
 
 
 
-CREATE TABLE users (
-    id	INT,
-    name	VARCHAR(512),
-    color	VARCHAR(512)
+CREATE TABLE users(
+id SERIAL PRIMARY KEY,
+name VARCHAR(15) UNIQUE NOT NULL,
+color VARCHAR(15)
 );
 
-INSERT INTO users (id, name, color) VALUES
-	('1', 'Bassem', 'teal'),
-	('2', 'Messi', 'powderblue'),
-	('3', 'ronaldo', 'yellow'),
-	('14', 'Neymar', 'green');
-
-
-CREATE TABLE visited_countries (
-    id	INT,
-    country_code	VARCHAR(512),
-    user_id	VARCHAR(512)
+CREATE TABLE visited_countries(
+id SERIAL PRIMARY KEY,
+country_code CHAR(2) NOT NULL,
+user_id INTEGER REFERENCES users(id)
 );
 
-INSERT INTO visited_countries (id, country_code, user_id) VALUES
-	('1', 'FR', '1'),
-	('2', 'GB', '1'),
-	('3', 'CA', '2'),
-	('4', 'FR', '2'),
-	('8', 'TN', '1'),
-	('9', 'DE', '1'),
-	('10', 'CN', '3'),
-	('11', 'PT', '3'),
-	('12', 'CN', '1'),
-	('15', 'CA', '1'),
-	('16', 'TN', '3'),
-	('17', 'DZ', '2'),
-	('18', 'DZ', '1'),
-	('23', 'BR', '14'),
-	('24', 'AR', '2'),
-	('25', 'ES', '2'),
-	('26', 'FR', '2'),
-	('27', 'US', '2'),
-	('28', 'AS', '3'),
-	('29', 'FR', '14'),
-	('30', 'ES', '14');
+INSERT INTO users (name, color)
+VALUES ('Angela', 'teal'), ('Jack', 'powderblue');
+
+INSERT INTO visited_countries (country_code, user_id)
+VALUES ('FR', 1), ('GB', 1), ('CA', 2), ('FR', 2 );
+
+SELECT *
+FROM visited_countries
+JOIN users
+ON users.id = user_id;
