@@ -27,7 +27,7 @@ This is a fun little project to track the countries your family has visited. Bui
    ```
 2. Go into the project folder:
    ```
-   cd family-visited-countries-tracker
+   cd Visited-Countries-Tracker------Node.js---Express.js-Postgres-
    ```
 3. Install the needed stuff:
    ```
