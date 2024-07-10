@@ -23,7 +23,7 @@ This is a fun little project to track the countries your family has visited. Bui
 
 1. Clone the repo:
    ```
-   git clone https://github.com/your-username/family-visited-countries-tracker.git
+   git clone https://github.com/BassemArfaoui/Visited-Countries-Tracker------Node.js---Express.js-Postgres-.git
    ```
 2. Go into the project folder:
    ```
